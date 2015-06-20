@@ -39,6 +39,7 @@ For example, to add the Earth and the Sun:
     Earth,1.52e11,0,0,0,29316,0,5.972e24
     Sun,0,0,0,0,0,0.0,1.988435e30
 
+Note that the numerical value of every quantity is given in SI (MKS) units.
 
 # Features to Add
 
