@@ -9,19 +9,18 @@ gravitation.
 ## Cloning
 
 You can clone the repository with 
-`git clone https://github.com/davidretler/N-Body.git'.
+`git clone https://github.com/davidretler/N-Body.git`.
 
 ## Building
-
-To build, type `gcc main.c -lm -g -std=gnu99'
+To build, type `gcc main.c -lm -g -std=gnu99`
 
 ## Running
 
-To run, `./a.out > data.csv'
+To run, `./a.out > data.csv`
 
 ## Output
 
-The program will write to a `.csv' file that contains on each row the following data:
+The program will write to a `.csv` file that contains on each row the following data:
 
     Planet_1_ID, pos_1, pos_2, pos_3, Planet_2_ID, pos_1, pos_2, pos_3,...
     
