@@ -9,15 +9,14 @@ gravitation.
 ## Cloning
 
 You can clone the repository with 
-`git clone https://github.com/davidretler/N-Body.git'.
+`git clone https://github.com/davidretler/N-Body.git`.
 
 ## Building
-
-To build, type `gcc main.c -lm -g -std=gnu99'
+To build, type `gcc main.c -lm -g -std=gnu99`
 
 ## Running
 
-To run, `./a.out > data.csv'
+To run, `./a.out > data.csv`
 
 ## Output
 
