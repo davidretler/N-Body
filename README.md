@@ -32,7 +32,7 @@ LibreOffice Calc or Microsoft Excel.
 
 I will be attempting to add the following features:
 
-* Allow for custom lists of bodies
+* Allow for custom lists of bodies [✓]
 * Script to plot output
 
 
