@@ -9,3 +9,7 @@
 **/*.prefs
 **/*.xml
 **/*.s
+**/.metadata/**/*
+**/*.lock
+
+

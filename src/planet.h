@@ -31,21 +31,21 @@ typedef struct planet
     char* name;            //planent's name
 } planet;
 
-planet* new_planet(const char* name, double pos[static 3], double vel[static 3], double mass)
+planet* new_planet(char* name, double pos[static 3], double vel[static 3], double mass)
 {
-    planet* ptr = malloc(sizeof(planet*));
+    planet* ptr = malloc(sizeof(planet));
 
     //ptr->id = curr_planet_id++; //increment id each time
 
     //set name, mass, position, and velocity
-    ptr->name = malloc(sizeof(name));//name broken for now
+    ptr->name = malloc(strlen(name) * sizeof(char));
 
-
-    for(int i = 0; i < sizeof(name); i++)
+    for(int i = 0; i < strlen(name); i++)
     {
         ptr->name[i] = ' '; //I have no clue why this needs to be here but it fixes a bug
         ptr->name[i] = name[i];
     }
+    ptr->name[strlen(name)] = '\0';
 
     ptr->pos = malloc(3 * sizeof(double));
     ptr->vel = malloc(3 * sizeof(double));
