@@ -1,0 +1,11 @@
+**/*~
+**/*.out
+**/*.o
+**/*.lst
+**/*.cproject
+**/*.project
+**/Debug/*
+**/*#
+**/*.prefs
+**/*.xml
+**/*.s
