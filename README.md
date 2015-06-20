@@ -20,7 +20,7 @@ To run, `./a.out > data.csv`
 
 ## Output
 
-The program will write to a `.csv' file that contains on each row the following data:
+The program will write to a `.csv` file that contains on each row the following data:
 
     Planet_1_ID, pos_1, pos_2, pos_3, Planet_2_ID, pos_1, pos_2, pos_3,...
     
