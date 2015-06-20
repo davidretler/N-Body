@@ -28,6 +28,18 @@ with successive rows representing different points in time. Currently I have not
 written a script to plot the data. I suggest viewing the data in either
 LibreOffice Calc or Microsoft Excel.
 
+## Planet list
+
+If you make a file called `planets` which contains initial planetary data, run the program with `./a.out /path/to/planets` and the program will initialize the universe with that data. Each body should have a it's own line formatted as:
+
+    NAME,POS_1,POS_2,POS_3,VEL_1,VEL_2,VEL_3,MASS
+    
+For example, to add the Earth and the Sun:
+
+    Earth,1.52e11,0,0,0,29316,0,5.972e24
+    Sun,0,0,0,0,0,0.0,1.988435e30
+
+
 # Features to Add
 
 I will be attempting to add the following features:
