@@ -12,7 +12,6 @@
 #include <math.h>
 
 
-#endif /* PLANENT_H_ */
 
 int curr_planet_id = 0;
 const double G = 6.67384e-11;     //gravitational constant
@@ -45,7 +44,7 @@ planet* new_planet(char* name, double pos[static 3], double vel[static 3], doubl
         ptr->name[i] = ' '; //I have no clue why this needs to be here but it fixes a bug
         ptr->name[i] = name[i];
     }
-    ptr->name[strlen(name)] = '\0';
+    ptr->name[strlen(name) - 1] = '\0';
 
     ptr->pos = malloc(3 * sizeof(double));
     ptr->vel = malloc(3 * sizeof(double));
@@ -149,4 +148,13 @@ void update_planet(planet* planet, double net_force[3])
     update_planet_dt(planet, net_force, dt);
 }
 
+void free_planet(planet* planet)
+{
+    free(planet->name);
+    free(planet->pos);
+    free(planet->vel);
+    free(planet);
+}
+
+#endif /* PLANENT_H_ */
 

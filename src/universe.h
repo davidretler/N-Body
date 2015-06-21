@@ -24,10 +24,10 @@ typedef struct universe
  */
 universe* new_universe()
 {
-    universe* universe = malloc(sizeof(void*));
+    universe* universe = malloc(sizeof(universe));
 
     //create an empty list to store the planets
-    universe->planet_list = malloc(sizeof(array_list*));
+    universe->planet_list = malloc(sizeof(array_list));
     init_list(universe->planet_list);
 
     return universe;
@@ -163,6 +163,22 @@ void universe_update_midpoint(universe* universe)
         update_planet(universe->planet_list->list_address[curr_planet], mid_net_forces[curr_planet]);
 
     }
+}
+
+/*
+ * Frees all memory allocated for universe
+ */
+void free_universe(universe* universe)
+{
+    //free the planets
+    for(int i = 0; i < universe->planet_list->length; i++)
+    {
+        free_planet(universe->planet_list->list_address[i]);
+    }
+
+    //free the list itself, and finall the universe
+    free_list(universe->planet_list);
+    free(universe);
 
 }
 

@@ -19,6 +19,7 @@ const double AU = 1.496e11; //one astronomical unit
 
 int parse_universe(universe* universe, char* file_name);
 
+
 int main(int argc, char* argv[])
 {
     universe* my_universe = new_universe();
@@ -27,14 +28,14 @@ int main(int argc, char* argv[])
     {
         //default system
 
-        planet* my_planet = malloc(sizeof(void*));
+        planet* my_planet;
 
         my_planet = new_planet("Earth", (double[3] ) { 1.52e11, 0.0, 0.0 }, (double[3] ) { 0.0, 29316, 0.0 }, 5.972e24);
         add_planet(my_universe, my_planet);
 
-        planet* planet_2 = malloc(sizeof(void*));
-        planet_2 = new_planet("Sun", (double[3] ) { 0.0, 0.0, 0.0 }, (double[3] ) { 0.0, 0.0, 0.0 }, 1.988435e30);
-        add_planet(my_universe, planet_2);
+
+        my_planet = new_planet("Sun", (double[3] ) { 0.0, 0.0, 0.0 }, (double[3] ) { 0.0, 0.0, 0.0 }, 1.988435e30);
+        add_planet(my_universe, my_planet);
     }
     else
     {
@@ -67,6 +68,8 @@ int main(int argc, char* argv[])
         }
         universe_update_midpoint(my_universe);
     }
+
+    free_universe(my_universe);
 
     return 0;
 }

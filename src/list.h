@@ -28,7 +28,7 @@ void init_list(array_list* list)
 {
 	list->size = 0;
 	list->length = 0;
-	list->list_address = malloc(0);
+	list->list_address = 0;
 }
 
 /*
@@ -47,16 +47,20 @@ int list_set_size(array_list* list, size_t size)
 		{
 			new_list_address[i] = list->list_address[i];
 		}
-		free(list->list_address);			//free the memory from the old list
+		if (list->list_address != 0)
+		{
+		    free(list->list_address);			//free the memory from the old list
+		}
+		//set the new list address to new_list_address and update size
+		list->list_address = new_list_address;
+		list->size = size;
 
-		list->list_address = new_list_address;//set the new list address to new_list_address
-		list->size = size;						//update the size of the list
-
-		return 0;										//return with no error
+		return 0;
 	}
-	else if (size < list->size)
+	else if (size < list->length)
 	{
-		return -1;					//new size is too small, won't truncate list
+	    //new capacity is smaller than length
+		return -1;
 	}
 
 	//something went wrong
@@ -113,4 +117,13 @@ list_type list_remove(array_list* list, size_t index)
 	}
 
 	return 0;
+}
+
+/*
+ * Frees the memory in use by the list
+ */
+void free_list(array_list* list)
+{
+    free(list->list_address);
+    free(list);
 }
