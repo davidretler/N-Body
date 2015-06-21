@@ -11,5 +11,6 @@
 **/*.s
 **/.metadata/**/*
 **/*.lock
-
+**/*.save
+**/nbody
 

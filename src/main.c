@@ -73,6 +73,9 @@ int main(int argc, char* argv[])
 
 /*
  * Parses the universe from a file containing the initial state
+ *
+ * Lightweight CSV parser, character-by-character. Assumes the input is valid.
+ * Will probably crash or cause undefined behavior if input is invalid.
  */
 int parse_universe(universe* universe, char* fname)
 {
@@ -82,80 +85,85 @@ int parse_universe(universe* universe, char* fname)
 
     int body_num = 0;
     //while there's a new line
-    while (fgets(line, sizeof(line), file))
+    if (file != NULL)
     {
-        if (feof(file))
-            break;
-        if (strlen(line) == 0)
-            break;
-
-        //to store state variables
-        char* name;
-        double pos[3] = { 0, 0, 0 };
-        double vel[3] = { 0, 0, 0 };
-        double mass = 0;
-
-        int item_num = 0;
-        int item_start = 0; //starting index of current item
-        //scan the line for all 8 items of information (Name, pos_1, pos_2, pos_3, vel_1, vel_2, vel_3, mass)
-        while (item_num < 8)
+        while (fgets(line, sizeof(line), file))
         {
-            int curr_char = item_start;
-            //find next comma/line end
-            while (line[curr_char] != ',' && line[curr_char] != '\n')
+            if (feof(file) || strlen(line) == 0)
             {
-                curr_char++;
-            }
-            int item_end = curr_char;
-            char* item = calloc((item_end - item_start + 1), sizeof(char));
-            curr_char = item_start;
-            //copy the current item value to item
-            while (curr_char < item_end)
-            {
-                //item[curr_char - item_start] = ' ';
-                item[curr_char - item_start] = line[curr_char];
-                curr_char++;
-            }
-            item[item_end - item_start] = '\0'; //null terminator
-
-            //we now have the item in a string called `item` and need to use it
-            if (item_num == 0)
-            {
-                //the name
-                name = strdup(item);
-            }
-            if (item_num > 0 && item_num < 4)
-            {
-                //the position
-                pos[item_num - 1] = strtod(item, 0);
-            }
-            if (item_num > 3 && item_num < 7)
-            {
-                //the velocity
-                vel[item_num - 4] = strtod(item, 0);
-            }
-            if (item_num == 7)
-            {
-                //the mass
-                mass = strtod(item, 0);
+                break;
             }
 
-            //move onto next item
-            item_num++;
-            item_start = item_end + 1; //next item starts right after this one ends
-            free(item);
+            //to store state variables
+            char* name;
+            double pos[3] = { 0, 0, 0 };
+            double vel[3] = { 0, 0, 0 };
+            double mass = 0;
 
+            int item_num = 0;
+            int item_start = 0; //starting index of current item
+            //scan the line for all 8 items of information (Name, pos_1, pos_2, pos_3, vel_1, vel_2, vel_3, mass)
+            while (item_num < 8)
+            {
+                int curr_char = item_start;
+                //find next comma/line end
+                while (line[curr_char] != ',' && line[curr_char] != '\n')
+                {
+                    curr_char++;
+                }
+                int item_end = curr_char;
+                char* item = calloc((item_end - item_start + 1), sizeof(char)); //why are the args for calloc different than malloc??
+                curr_char = item_start;
+                //copy the current item value to item
+                while (curr_char < item_end)
+                {
+                    //item[curr_char - item_start] = ' ';
+                    item[curr_char - item_start] = line[curr_char];
+                    curr_char++;
+                }
+                item[item_end - item_start] = '\0'; //null terminator
+
+                //we now have the item in a string called `item` and need to use it
+                if (item_num == 0)
+                {
+                    //the name
+                    name = strdup(item);
+                }
+                if (item_num > 0 && item_num < 4)
+                {
+                    //the position
+                    pos[item_num - 1] = strtod(item, 0);
+                }
+                if (item_num > 3 && item_num < 7)
+                {
+                    //the velocity
+                    vel[item_num - 4] = strtod(item, 0);
+                }
+                if (item_num == 7)
+                {
+                    //the mass
+                    mass = strtod(item, 0);
+                }
+
+                //move onto next item
+                item_num++;
+                item_start = item_end + 1; //next item starts right after this one ends
+                free(item);
+
+            }
+            planet* my_planet = malloc(sizeof(planet*));
+            my_planet = new_planet(name, pos, vel, mass);
+            add_planet(universe, my_planet);
+            body_num++;
         }
-        planet* my_planet = malloc(sizeof(planet*));
-        my_planet = new_planet(name, pos, vel, mass);
-        add_planet(universe, my_planet);
-        //printf("Name: %s\n", name);
-        body_num++;
+
+        //close the file
+        fclose(file);
     }
-
-    //close the file
-    fclose(file);
-
+    else
+    {
+        return 1;
+    }
     return 0;
 
 }
