@@ -47,6 +47,11 @@ I will be attempting to add the following features:
 
 * Allow for custom lists of bodies [✓]
 * Script to plot output
+* 
+
+# Current Issues
+
+* The sun appears to be slowing drifting from the center, but only when using the midpoint algorithm (which *should* be more accurate)
 
 
   
