@@ -154,10 +154,11 @@ int parse_universe(universe* universe, char* fname)
                 free(item);
 
             }
-            planet* my_planet = malloc(sizeof(planet*));
+            planet* my_planet;
             my_planet = new_planet(name, pos, vel, mass);
             add_planet(universe, my_planet);
             body_num++;
+            free(name);
         }
 
         //close the file

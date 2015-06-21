@@ -119,7 +119,7 @@ void universe_update_midpoint(universe* universe)
     //use net force to update planets by dt/2
     for (int curr_planet = 0; curr_planet < universe->planet_list->length; curr_planet++)
     {
-        update_planet_dt(universe->planet_list->list_address[curr_planet], net_forces[curr_planet], dt / 2);
+        update_planet_dt(universe->planet_list->list_address[curr_planet], net_forces[curr_planet], dt / 2.0);
     }
 
     //allocate memory for midpoint forces
@@ -176,7 +176,7 @@ void free_universe(universe* universe)
         free_planet(universe->planet_list->list_address[i]);
     }
 
-    //free the list itself, and finall the universe
+    //free the list itself, and finally the universe
     free_list(universe->planet_list);
     free(universe);
 

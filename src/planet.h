@@ -37,14 +37,14 @@ planet* new_planet(char* name, double pos[static 3], double vel[static 3], doubl
     //ptr->id = curr_planet_id++; //increment id each time
 
     //set name, mass, position, and velocity
-    ptr->name = malloc(strlen(name) * sizeof(char));
+    ptr->name = malloc((strlen(name) + 1) * sizeof(char));
 
     for(int i = 0; i < strlen(name); i++)
     {
         ptr->name[i] = ' '; //I have no clue why this needs to be here but it fixes a bug
         ptr->name[i] = name[i];
     }
-    ptr->name[strlen(name) - 1] = '\0';
+    ptr->name[strlen(name)] = '\0';
 
     ptr->pos = malloc(3 * sizeof(double));
     ptr->vel = malloc(3 * sizeof(double));
@@ -133,9 +133,9 @@ void update_planet_dt(planet* planet, double net_force[3], double dt)
         //calculations
         double curr_vel = planet->vel[i];
         double new_vel = curr_vel + dt * (net_force[i]/planet->mass);
-        double avg_vel = (curr_vel + new_vel) / 2.0; //the average velocity over the time step
+        //double avg_vel = (curr_vel + new_vel) / 2.0; //the average velocity over the time step
 
-        planet->pos[i] += dt * avg_vel;
+        planet->pos[i] += dt * new_vel;
         planet->vel[i] = new_vel;
     }
 }
