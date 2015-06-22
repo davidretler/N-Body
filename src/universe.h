@@ -152,12 +152,11 @@ void universe_update_midpoint(universe* universe)
     for (int curr_planet = 0; curr_planet < universe->planet_list->length; curr_planet++)
     {
         //revert
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             universe->planet_list->list_address[curr_planet]->pos[i] = old_pos[curr_planet][i];
             universe->planet_list->list_address[curr_planet]->vel[i] = old_vel[curr_planet][i];
         }
-
 
         //update
         update_planet(universe->planet_list->list_address[curr_planet], mid_net_forces[curr_planet]);
@@ -171,7 +170,7 @@ void universe_update_midpoint(universe* universe)
 void free_universe(universe* universe)
 {
     //free the planets
-    for(int i = 0; i < universe->planet_list->length; i++)
+    for (int i = 0; i < universe->planet_list->length; i++)
     {
         free_planet(universe->planet_list->list_address[i]);
     }

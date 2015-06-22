@@ -11,8 +11,6 @@
 
 #include <math.h>
 
-
-
 int curr_planet_id = 0;
 const double G = 6.67384e-11;     //gravitational constant
 #ifdef _DT
@@ -39,9 +37,9 @@ planet* new_planet(char* name, double pos[static 3], double vel[static 3], doubl
     //set name, mass, position, and velocity
     ptr->name = malloc((strlen(name) + 1) * sizeof(char));
 
-    for(int i = 0; i < strlen(name); i++)
+    for (int i = 0; i < strlen(name); i++)
     {
-        ptr->name[i] = ' '; //I have no clue why this needs to be here but it fixes a bug
+        //ptr->name[i] = ' '; //I have no clue why this needs to be here but it fixes a bug
         ptr->name[i] = name[i];
     }
     ptr->name[strlen(name)] = '\0';
@@ -99,8 +97,7 @@ double magnitude(double vec[3])
  */
 void add_force_vector(planet* planet1, planet* planet2, double force[3])
 {
-    double r[3] =
-    { 0.0, 0.0, 0.0 };
+    double r[3] = { 0.0, 0.0, 0.0 };
     //double F = {0.0, 0.0, 0.0};
 
     //calculate r
@@ -132,10 +129,10 @@ void update_planet_dt(planet* planet, double net_force[3], double dt)
     {
         //calculations
         double curr_vel = planet->vel[i];
-        double new_vel = curr_vel + dt * (net_force[i]/planet->mass);
-        //double avg_vel = (curr_vel + new_vel) / 2.0; //the average velocity over the time step
+        double new_vel = curr_vel + dt * (net_force[i] / planet->mass);
+        double avg_vel = (curr_vel + new_vel) / 2.0; //the average velocity over the time step
 
-        planet->pos[i] += dt * new_vel;
+        planet->pos[i] += dt * avg_vel;
         planet->vel[i] = new_vel;
     }
 }
