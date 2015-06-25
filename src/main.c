@@ -38,9 +38,21 @@ int main(int argc, char* argv[])
     else
     {
         //load saved system
-
-        parse_universe(my_universe, argv[1]);
-
+        int p = parse_universe(my_universe, argv[1]);
+        if(p != 0)
+        {
+            //catch errors
+            if(p == -1)
+            {
+                printf("Error: planet file malformed, aborting.\n");
+                free_universe(my_universe);
+                return 1;
+            }
+            if(p == -2)
+            {
+                printf("Error: planet file not found, aborting.\n");
+            }
+        }
     }
 
     for (int n = 0; n < _N_STEPS; n++)
@@ -88,37 +100,41 @@ int parse_universe(universe* universe, char* fname)
     //while there's a new line
     if (file != NULL)
     {
+        //to store state variables
+        char* name;
+        double pos[3] = { 0, 0, 0 };
+        double vel[3] = { 0, 0, 0 };
+        double mass = 0;
+
         while (fgets(line, sizeof(line), file))
         {
             if (feof(file) || strlen(line) == 0)
             {
+                //finished reading file, escape
                 break;
             }
 
-            //to store state variables
-            char* name;
-            double pos[3] = { 0, 0, 0 };
-            double vel[3] = { 0, 0, 0 };
-            double mass = 0;
-
             int item_num = 0;
             int item_start = 0; //starting index of current item
+
             //scan the line for all 8 items of information (Name, pos_1, pos_2, pos_3, vel_1, vel_2, vel_3, mass)
             while (item_num < 8)
             {
                 int curr_char = item_start;
+
                 //find next comma/line end
                 while (line[curr_char] != ',' && line[curr_char] != '\n')
                 {
                     curr_char++;
                 }
+
                 int item_end = curr_char;
-                char* item = calloc((item_end - item_start + 1), sizeof(char)); //why are the args for calloc different than malloc??
+                char* item = malloc((item_end - item_start + 1) * sizeof(char)); //allocate space for current item
                 curr_char = item_start;
+
                 //copy the current item value to item
                 while (curr_char < item_end)
                 {
-                    //item[curr_char - item_start] = ' ';
                     item[curr_char - item_start] = line[curr_char];
                     curr_char++;
                 }
@@ -147,24 +163,32 @@ int parse_universe(universe* universe, char* fname)
                 }
 
                 //move onto next item
+
+                //if we're already at the end of the line, and we haven't found enough items
+                if(line[curr_char] == '\n' && item_num < 7)
+                {
+                    free(item);
+                    fclose(file);
+                    return -1;
+                }
                 item_num++;
                 item_start = item_end + 1; //next item starts right after this one ends
                 free(item);
 
             }
+            //create a new planet with the value from the file, and add to universe
             planet* my_planet;
             my_planet = new_planet(name, pos, vel, mass);
             add_planet(universe, my_planet);
             body_num++;
             free(name);
         }
-
         //close the file
         fclose(file);
     }
     else
     {
-        return 1;
+        return -2;
     }
     return 0;
 
