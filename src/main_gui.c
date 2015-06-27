@@ -1,22 +1,40 @@
 /*
- * main.c
+ * main_gui.c
+ *
+ *
+ * Main code for GUI for N-Body
  *
  *  Created on: Jun 16, 2015
  *      Author: David Etler
  */
 
+ #include <GL/glut.h>
+ #include <unistd.h>
+ #include <time.h>
+ #include <sys/time.h>
+ #include <stdint.h>
+ #include <math.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include "planet.h"
+ #include "universe.h"
 
 #define _N_STEPS 365*5
 #define _DT 60*60*24
 #define _DELIMITER ','
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "planet.h"
-#include "universe.h"
+#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 800
+#define FPS 60
 
 const double AU = 1.496e11; //one astronomical unit
+static universe* my_universe;
+
+static int frame_time = (int)((1.0/(double)FPS) * 1000000);
+static float circ_pos_y = 0.0f;
+
+#include "gui.h"
+
 
 /**
  * Parse the universe from a file
@@ -26,10 +44,27 @@ const double AU = 1.496e11; //one astronomical unit
  */
 int parse_universe(universe* universe, char* file_name);
 
+/**
+ * Initializes the program
+ */
+void inialize_gui(void);
+
+/**
+ * Cleans up
+ */
+void cleanup(void);
+
+/**
+ * The main program loop
+ */
+void loop(void);
+
 int main(int argc, char* argv[])
 {
-    universe* my_universe = new_universe();
+    my_universe = new_universe();
+    atexit(cleanup);
 
+    //load either the default system or the system stored in the file, depending on the argument
     if (argc == 1)
     {
         //default system
@@ -63,33 +98,55 @@ int main(int argc, char* argv[])
         }
     }
 
-    for (int n = 0; n < _N_STEPS; n++)
-    {
-        //don't clutter the output with 1000s of lines of information
-        //make number smaller for more verbose output
-        if (n % 1 == 0)
-        {
-            //print info for all planets (csv)
-            for (int i = 0; i < my_universe->planet_list->length; i++)
-            {
-                if (i != 0)
-                {
-                    printf("%c", _DELIMITER);
-                }
-                printf("%s", my_universe->planet_list->list_address[i]->name);
-                for (int j = 0; j < 3; j++)
-                {
-                    printf("%c%f", _DELIMITER, my_universe->planet_list->list_address[i]->pos[j] / AU);
-                }
-            }
-            printf("\n");
-        }
-        universe_update_midpoint(my_universe);
-    }
 
-    free_universe(my_universe);
+
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(WINDOW_HEIGHT, WINDOW_WIDTH);
+    glutInitWindowPosition(200, 200);
+    glutCreateWindow("N-Body Simulator");
+    inialize_gui();
+    glutDisplayFunc(loop);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(1.0, 1.0, 1.0);
+    glutMainLoop();
+
 
     return 0;
+}
+
+void loop()
+{
+    /*
+     * Get the start time
+     */
+    struct timeval tv;
+    gettimeofday(&tv, 0);
+    int start_time = tv.tv_usec; //microsecond time
+
+    /*
+     * Render things
+     */
+    glClear(GL_COLOR_BUFFER_BIT);
+    Draw();
+    //printf("The time is %ld.\n", (long)time(0));
+
+
+    /*
+     * Get end time, and sleep required length
+     */
+    gettimeofday(&tv, 0);
+    int end_time = tv.tv_usec;
+    //free(tv);
+    int time_diff = end_time - start_time;
+    if(time_diff < frame_time)
+    {
+        usleep(frame_time - time_diff);
+    }
+
+    circ_pos_y += 0.01f;
+
+    glutPostRedisplay();
 }
 
 /*
@@ -200,4 +257,9 @@ int parse_universe(universe* universe, char* fname)
     }
     return 0;
 
+}
+
+void cleanup(void)
+{
+    free(my_universe);
 }

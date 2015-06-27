@@ -28,6 +28,7 @@ typedef struct planet
     char* name;            //planent's name
 } planet;
 
+
 planet* new_planet(char* name, double pos[static 3], double vel[static 3], double mass)
 {
     planet* ptr = malloc(sizeof(planet));
@@ -84,7 +85,7 @@ double magnitude(double vec[3])
     return sqrt(mag);
 }
 
-/*
+/**
  * Calculates the force on planet1 due to planet2
  *
  * By Newton's law of gravitation:
@@ -94,6 +95,9 @@ double magnitude(double vec[3])
  * with r = pos2 - pos1 and |r| is magnitude of r
  *
  * Results are stored in force (since C cannot safely return arrays)
+ *
+ *
+ *
  */
 void add_force_vector(planet* planet1, planet* planet2, double force[3])
 {
@@ -154,4 +158,3 @@ void free_planet(planet* planet)
 }
 
 #endif /* PLANENT_H_ */
-
