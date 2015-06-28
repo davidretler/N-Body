@@ -16,7 +16,6 @@
 #include "planet.h"
 #include "universe.h"
 
-const double AU = 1.496e11; //one astronomical unit
 
 /**
  * Parse the universe from a file
