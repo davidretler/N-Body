@@ -12,11 +12,21 @@ You can clone the repository with
 `git clone https://github.com/davidretler/N-Body.git`.
 
 ## Building
-To build, type `gcc main.c -lm -g -std=gnu99`
+To build the cli version use
+
+    make cli
+    ./nbody > data.csv
+    
+TO build the GUI version use
+
+    make gui
+    ./nbody-gui
 
 ## Running
 
-To run, `./a.out > data.csv`
+You can run the program using a custom list of bodies by typing `./nbody planets` where `planets` is a properly-formatted file containg planet data.
+
+Note that the gui version is likely only to run on Unix systems. GLUT is is required to build and run the gui version.
 
 ## Output
 
