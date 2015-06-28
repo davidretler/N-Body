@@ -8,10 +8,6 @@
  *      Author: David Etler
  */
 
-#include <GL/glut.h>
-#include <unistd.h>
-#include <time.h>
-#include <sys/time.h>
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>
@@ -19,21 +15,18 @@
 #include <string.h>
 #include "planet.h"
 #include "universe.h"
+#include "gui.h"
 
 #define _N_STEPS 365*5
 #define _DT 60*60*24
 #define _DELIMITER ','
-#define WINDOW_HEIGHT 800
-#define WINDOW_WIDTH 800
-#define FPS 60
+
 
 const double AU = 1.496e11; //one astronomical unit
 static universe* my_universe;
 
-static int frame_time = (int)((1.0/(double)FPS) * 1000000);
-static float circ_pos_y = 0.0f;
-
-#include "gui.h"
+extern float circ_pos_y;
+extern int frame_time;
 
 
 /**
@@ -113,40 +106,6 @@ int main(int argc, char* argv[])
 
 
     return 0;
-}
-
-void loop()
-{
-    /*
-     * Get the start time
-     */
-    struct timeval tv;
-    gettimeofday(&tv, 0);
-    int start_time = tv.tv_usec; //microsecond time
-
-    /*
-     * Render things
-     */
-    glClear(GL_COLOR_BUFFER_BIT);
-    Draw();
-    //printf("The time is %ld.\n", (long)time(0));
-
-
-    /*
-     * Get end time, and sleep required length
-     */
-    gettimeofday(&tv, 0);
-    int end_time = tv.tv_usec;
-    //free(tv);
-    int time_diff = end_time - start_time;
-    if(time_diff < frame_time)
-    {
-        usleep(frame_time - time_diff);
-    }
-
-    circ_pos_y += 0.002f;
-
-    glutPostRedisplay();
 }
 
 /*

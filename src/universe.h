@@ -10,8 +10,9 @@
 #ifndef UNIVERSE_H_
 #define UNIVERSE_H_
 
-#include "list.h"
 #include <stdlib.h>
+#include "planet.h"
+#include "list.h"
 
 extern const double dt;
 

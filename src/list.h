@@ -30,5 +30,4 @@ int list_add(array_list* list, list_type item);
 list_type list_remove(array_list* list, size_t index);
 void free_list(array_list* list);
 
-
 #endif /* LIST_H_ */

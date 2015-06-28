@@ -1,4 +1,3 @@
-#include "planet.h"
 #include "universe.h"
 
 /*
