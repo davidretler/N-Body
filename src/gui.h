@@ -15,7 +15,7 @@
 #define SCALE 2.0  /*How many AU to include in the rendering the universe*/
 #define PLANET_RADIUS 0.02 /*Radius to draw bodies with, in AU*/
 #define NUM_SIDES 100 /*Number of sides to draw polygon with to approximate circle*/
-#define SPEEDUP 1000000 /*How man times faster the simulation is than realtime*/
+#define SPEEDUP 200000 /*How man times faster the simulation is than realtime*/
 
 void Draw(void);
 void DrawCircle(float cx, float cy, float r, int num_segments);

@@ -1,6 +1,6 @@
 #include "gui.h"
 
-static int frame_time = (int)((1.0/(double)FPS) * 1000000);
+static int frame_time = (int)((1.0/(double)FPS) * 1000);
 static float circ_pos_y = 0.0f;
 universe* my_universe;
 extern const double AU;
@@ -19,7 +19,7 @@ void Draw() {
         DrawCircle(my_universe->planet_list->list_address[p]->pos[0]/AU, my_universe->planet_list->list_address[p]->pos[1]/AU, PLANET_RADIUS, NUM_SIDES);
         //printf("Rendering planet %u (pos=%f)\n", p, my_universe->planet_list->list_address[p]->pos[0]/AU);
     }
-    glFlush();
+    glutSwapBuffers();
 }
 
 void DrawCircle(float cx, float cy, float r, int num_segments)
@@ -54,7 +54,7 @@ void loop()
      */
     struct timeval tv;
     gettimeofday(&tv, 0);
-    int start_time = tv.tv_usec; //microsecond time
+    int start_time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 
     /*
      * Render things
@@ -76,11 +76,11 @@ void loop()
      * Get end time, and sleep required length
      */
     gettimeofday(&tv, 0);
-    int end_time = tv.tv_usec;
+    int end_time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 
     int time_diff = end_time - start_time;
 
-    //printf("Frame took %u ms to render.\n", time_diff/1000);
+    //printf("Frame took %u ms to render.\n", time_diff);
 
     if(time_diff < frame_time)
     {
