@@ -8,17 +8,17 @@
  *      Author: David Etler
  */
 
- #include <GL/glut.h>
- #include <unistd.h>
- #include <time.h>
- #include <sys/time.h>
- #include <stdint.h>
- #include <math.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
- #include "planet.h"
- #include "universe.h"
+#include <GL/glut.h>
+#include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
+#include <stdint.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "planet.h"
+#include "universe.h"
 
 #define _N_STEPS 365*5
 #define _DT 60*60*24
@@ -144,7 +144,7 @@ void loop()
         usleep(frame_time - time_diff);
     }
 
-    circ_pos_y += 0.01f;
+    circ_pos_y += 0.002f;
 
     glutPostRedisplay();
 }
@@ -261,5 +261,5 @@ int parse_universe(universe* universe, char* fname)
 
 void cleanup(void)
 {
-    free(my_universe);
+    free_universe(my_universe);
 }

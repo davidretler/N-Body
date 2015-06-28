@@ -5,11 +5,9 @@ void inialize_gui();
 void Draw() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-
     DrawCircle(0.5, circ_pos_y, 0.2, 100);
 
     glFlush();
-
 }
 
 void DrawCircle(float cx, float cy, float r, int num_segments)
