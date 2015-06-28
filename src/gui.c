@@ -2,12 +2,23 @@
 
 static int frame_time = (int)((1.0/(double)FPS) * 1000000);
 static float circ_pos_y = 0.0f;
+universe* my_universe;
+extern const double AU;
+extern const double G;
+extern const double dt;
+
+#define NUM_STEPS (int)(SPEEDUP/dt/FPS) /*Number of steps to update each frame to achieve desired speedup*/
 
 void Draw() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    DrawCircle(0.5, circ_pos_y, 0.2, 100);
-
+    //DrawCircle(0.5, circ_pos_y, 0.2, 100);
+    //
+    for(int p = 0; p < my_universe->planet_list->length; p++)
+    {
+        DrawCircle(my_universe->planet_list->list_address[p]->pos[0]/AU, my_universe->planet_list->list_address[p]->pos[1]/AU, PLANET_RADIUS, NUM_SIDES);
+        //printf("Rendering planet %u (pos=%f)\n", p, my_universe->planet_list->list_address[p]->pos[0]/AU);
+    }
     glFlush();
 }
 
@@ -27,12 +38,13 @@ void DrawCircle(float cx, float cy, float r, int num_segments)
     glEnd();
 }
 
-void inialize_gui()
+void inialize_gui(universe* universe)
 {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+    glOrtho(-SCALE, SCALE, -SCALE, SCALE, -1.0, 1.0);
+    my_universe = universe;
 }
 
 void loop()
@@ -49,7 +61,15 @@ void loop()
      */
     glClear(GL_COLOR_BUFFER_BIT);
     Draw();
-    //printf("The time is %ld.\n", (long)time(0));
+
+    /*
+     * Update the universe
+     */
+    for(int n = 0; n < NUM_STEPS; n++)
+    {
+        universe_update_midpoint(my_universe);
+    }
+    //printf("Ran n=%u steps\n", NUM_STEPS);
 
 
     /*
@@ -57,8 +77,11 @@ void loop()
      */
     gettimeofday(&tv, 0);
     int end_time = tv.tv_usec;
-    //free(tv);
+
     int time_diff = end_time - start_time;
+
+    //printf("Frame took %u ms to render.\n", time_diff/1000);
+
     if(time_diff < frame_time)
     {
         usleep(frame_time - time_diff);

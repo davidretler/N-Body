@@ -2,13 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int curr_planet_id = 0;
-const double G = 6.67384e-11;     //gravitational constant
-#ifdef _DT
-const double dt = _DT;            //time step (lower for more accuracy)
-#else
-const double dt = 60;
-#endif
+extern const double G;
+extern const double dt;
 
 planet* new_planet(char* name, double pos[static 3], double vel[static 3], double mass)
 {

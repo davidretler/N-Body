@@ -8,6 +8,10 @@
  *      Author: David Etler
  */
 
+ #define _N_STEPS 365*5
+ #define _DT 60
+ #define _DELIMITER ','
+
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>
@@ -17,17 +21,7 @@
 #include "universe.h"
 #include "gui.h"
 
-#define _N_STEPS 365*5
-#define _DT 60*60*24
-#define _DELIMITER ','
-
-
-const double AU = 1.496e11; //one astronomical unit
 static universe* my_universe;
-
-extern float circ_pos_y;
-extern int frame_time;
-
 
 /**
  * Parse the universe from a file
@@ -38,19 +32,10 @@ extern int frame_time;
 int parse_universe(universe* universe, char* file_name);
 
 /**
- * Initializes the program
- */
-void inialize_gui(void);
-
-/**
  * Cleans up
  */
 void cleanup(void);
 
-/**
- * The main program loop
- */
-void loop(void);
 
 int main(int argc, char* argv[])
 {
@@ -92,18 +77,16 @@ int main(int argc, char* argv[])
     }
 
 
-
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(WINDOW_HEIGHT, WINDOW_WIDTH);
     glutInitWindowPosition(200, 200);
     glutCreateWindow("N-Body Simulator");
-    inialize_gui();
+    inialize_gui(my_universe);
     glutDisplayFunc(loop);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0, 1.0, 1.0);
     glutMainLoop();
-
 
     return 0;
 }

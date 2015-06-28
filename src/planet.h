@@ -9,6 +9,13 @@
 #ifndef PLANENT_H_
 #define PLANENT_H_
 
+static const double G = 6.67384e-11;     //gravitational constant
+#ifdef _DT
+static const double dt = _DT;            //time step (lower for more accuracy)
+#else
+static const double dt = 60;
+#endif
+
 #include <math.h>
 
 typedef struct planet
