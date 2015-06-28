@@ -61,6 +61,10 @@ I will be attempting to add the following features:
 * Output Plotting [✓]
 * General polishing
 
+# TODO
+
+* Move planet parser out of main
+
 # Current Issues
 
 * ~~The sun appears to be slowing drifting from the center, but only when using the midpoint algorithm (which *should* be more accurate)~~ this has been fixed!

@@ -8,9 +8,9 @@
  *      Author: David Etler
  */
 
- #define _N_STEPS 365*5
- #define _DT 60
- #define _DELIMITER ','
+#define _N_STEPS 365*5
+#define _DT 60
+#define _DELIMITER ','
 
 #include <stdint.h>
 #include <math.h>
@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
         }
     }
 
-
+    //gui stuff
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(WINDOW_HEIGHT, WINDOW_WIDTH);
