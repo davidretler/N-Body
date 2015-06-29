@@ -22,6 +22,7 @@
 #include "gui.h"
 
 static universe* my_universe;
+static int error = 0; //remains 0 if no error
 
 /**
  * Parse the universe from a file
@@ -59,6 +60,7 @@ int main(int argc, char* argv[])
     {
         //load saved system
         int p = parse_universe(my_universe, argv[1]);
+        error = 1;
         if(p != 0)
         {
             //catch errors
@@ -209,5 +211,6 @@ int parse_universe(universe* universe, char* fname)
 
 void cleanup(void)
 {
-    free_universe(my_universe);
+    if(error == 0)
+        free_universe(my_universe);
 }
