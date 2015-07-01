@@ -20,14 +20,16 @@ static const double dt = 60;
 
 typedef struct planet
 {
-    double* pos;           //position vector
-    double* vel;           //velocity vector
-    double mass;           //planets mass
-    int id;                //id number
-    char* name;            //planent's name
+    double* pos;              //position vector
+    double* vel;              //velocity vector
+    double mass;              //planets mass
+    int id;                   //id number
+    char* name;               //planent's name
+    unsigned char color[3];   //planet's color
 } planet;
 
 planet* new_planet(char* name, double pos[static 3], double vel[static 3], double mass);
+planet* new_planet_color(char* name, double pos[static 3], double vel[static 3], double mass, unsigned char the_color[static 3]);
 double magnitude2(double vec[3]);
 double magnitude2(double vec[3]);
 double magnitude(double vec[3]);

@@ -10,6 +10,28 @@
   * Lightweight CSV parser, character-by-character. Assumes the input is valid.
   * Will probably crash or cause undefined behavior if input is invalid.
   */
+ int parse_universe(universe* universe, char* fname);
+
+ /*
+  * Parses the color passed as a string containing the color in hex form
+  *
+  * Color is defined as a 6-charecter string of hex digits in RGB formatted.
+  * For example, FF0000 is RED and 00FFFF is cyan.
+  * A pointer to a array of unsigned char (8 bits) is passed. It will alwas contain
+  *   three items: red, green, and blue.
+  *
+  *  Returns null pointer if error occurs.
+  */
+ unsigned char* parse_color(char* item);
+
+ /*
+  * Returns the numerical value of a hexidecial charecter.
+  *
+  * Returns -1 if the charecter is not hexidecial.
+  */
+ unsigned char hex_value(char charecter);
+
+
  int parse_universe(universe* universe, char* fname)
  {
      char const* const file_name = fname;
@@ -41,6 +63,7 @@
 
                  int item_num = 0;
                  int item_start = 0; //starting index of current item
+                 int item_end;
 
                  //scan the line for all 8 items of information (Name, pos_1, pos_2, pos_3, vel_1, vel_2, vel_3, mass)
                  while (item_num < 8)
@@ -53,7 +76,7 @@
                          curr_char++;
                      }
 
-                     int item_end = curr_char;
+                     item_end = curr_char;
                      char* item = malloc((item_end - item_start + 1) * sizeof(char)); //allocate space for current item
                      curr_char = item_start;
 
@@ -102,16 +125,45 @@
                  }
 
                  //if we found the name, pos, and mass but there is another item, then that item is the optional color
-                 if(item_num == 7 && line[item_end] == ',')
+                 if(item_num == 8 && line[item_end] == ',')
                  {
-                     printf("Found color\n");
+                     item_start = item_end + 1;
+                     int curr_char = item_start;
+                     while(line[curr_char] != '\n')
+                     {
+                         curr_char++;
+                     }
+                     item_end = curr_char;
+                     char* item = malloc((item_end - item_start + 1) * sizeof(char));
+                     curr_char = item_start;
+                     while(curr_char < item_end)
+                     {
+                         item[curr_char - item_start] = line[curr_char];
+                         curr_char++;
+                     }
+                     if(item_end - item_start  + 1 != 6)
+                     {
+                         return -1; //file is malformed as color must be 6 charecters long
+                     }
+                     unsigned char* the_color = parse_color(item);
+                     free(item);
+
+                     planet* my_planet;
+                     my_planet = new_planet_color(name, pos, vel, mass, (unsigned char[3]) {the_color[0], the_color[1], the_color[2]});
+                     add_planet(universe, my_planet);
+                     body_num++;
+                     free(name);
+                     free(the_color);
                  }
-                 //create a new planet with the value from the file, and add to universe
-                 planet* my_planet;
-                 my_planet = new_planet(name, pos, vel, mass);
-                 add_planet(universe, my_planet);
-                 body_num++;
-                 free(name);
+                 else
+                 {
+                     //create a new planet with the value from the file, and add to universe
+                     planet* my_planet;
+                     my_planet = new_planet(name, pos, vel, mass);
+                     add_planet(universe, my_planet);
+                     body_num++;
+                     free(name);
+                 }
              }
          }
          //close the file
@@ -122,5 +174,71 @@
          return -2;
      }
      return 0;
+ }
 
+ unsigned char* parse_color(char* item)
+ {
+     unsigned char* color = malloc(3 * sizeof(unsigned char));
+
+     for(int i = 0; i < 3; i++)
+     {
+         unsigned char curr_color = 0;
+         //first digit
+         unsigned char c = hex_value(item[2*i]);
+         if(c != -1)
+         {
+             curr_color += c;
+         }
+         else
+         {
+             return 0;
+         }
+         //second digit
+         c = hex_value(item[2*i + 1]);
+         if(c != -1)
+         {
+             curr_color += c * 16;
+         }
+         else
+         {
+             return 0;
+         }
+         //final color
+         color[i] = curr_color;
+     }
+
+     return color;
+ }
+
+ unsigned char hex_value(char charecter)
+ {
+     if(charecter >= '0' && charecter <= '9')
+     {
+         return charecter - '0';
+     }
+     else
+     {
+         switch (charecter) {
+             case 'A':
+                return 10;
+                break;
+             case 'B':
+                return 11;
+                break;
+             case 'C':
+                return 12;
+                break;
+             case 'D':
+                return 13;
+                break;
+             case 'E':
+                return 14;
+                break;
+             case 'F':
+                return 15;
+                break;
+             default:
+                return -1;
+         }
+     }
  }

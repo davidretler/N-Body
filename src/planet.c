@@ -32,6 +32,22 @@ planet* new_planet(char* name, double pos[static 3], double vel[static 3], doubl
 
     ptr->mass = mass;
 
+    //defualt color is black
+    ptr->color[0] = 0;
+    ptr->color[1] = 0;
+    ptr->color[2] = 0;
+
+    return ptr;
+}
+
+planet* new_planet_color(char* name, double pos[static 3], double vel[static 3], double mass, unsigned char the_color[static 3])
+{
+    planet* ptr = malloc(sizeof(planet));
+    ptr = new_planet(name, pos, vel, mass);
+    ptr->color[0] = the_color[0];
+    ptr->color[1] = the_color[1];
+    ptr->color[2] = the_color[2];
+
     return ptr;
 }
 
