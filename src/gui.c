@@ -16,10 +16,15 @@ void Draw() {
     //
     for(int p = 0; p < my_universe->planet_list->length; p++)
     {
-        DrawCircle(my_universe->planet_list->list_address[p]->pos[0]/AU, my_universe->planet_list->list_address[p]->pos[1]/AU, PLANET_RADIUS, NUM_SIDES);
+        DrawPlanet(my_universe->planet_list->list_address[p]);
         //printf("Rendering planet %u (pos=%f)\n", p, my_universe->planet_list->list_address[p]->pos[0]/AU);
     }
     glutSwapBuffers();
+}
+
+void DrawPlanet(planet* my_planet)
+{
+    DrawCircle(my_planet->pos[0]/AU, my_planet->pos[1]/AU, PLANET_RADIUS, NUM_SIDES);
 }
 
 void DrawCircle(float cx, float cy, float r, int num_segments)

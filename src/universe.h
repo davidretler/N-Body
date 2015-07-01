@@ -14,7 +14,7 @@
 #include "planet.h"
 #include "list.h"
 
-static const double AU = 1.496e11; //one astronomical unit
+static const double AU = 1.496e11; //one astronomical unit (in meters)
 extern const double dt;
 
 typedef struct universe
