@@ -1,6 +1,6 @@
 #include "gui.h"
 
-static int frame_time = (int)((1.0/(double)FPS) * 1000);
+static int frame_time = (int)((1.0/(double)FPS) * 1000); //time frame should take, ms
 universe* my_universe;
 extern const double AU;
 extern const double G;
@@ -60,9 +60,7 @@ void loop()
     /*
      * Get the start time
      */
-    struct timeval tv;
-    gettimeofday(&tv, 0);
-    int start_time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+    int start_time = glutGet(GLUT_ELAPSED_TIME);
 
     /*
      * Render things
@@ -83,18 +81,22 @@ void loop()
     /*
      * Get end time, and sleep required length
      */
-    gettimeofday(&tv, 0);
-    int end_time = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+    int end_time = glutGet(GLUT_ELAPSED_TIME);
 
     int time_diff = end_time - start_time;
 
-    //printf("Frame took %u ms to render.\n", time_diff);
+    printf("Frame took %u ms to render. Time left %u ms.\n", time_diff, frame_time > time_diff ? frame_time - time_diff : 0);
 
     if(time_diff < frame_time)
     {
+        //glutTimerFunc(frame_time - time_diff, (void(*)(int))loop, 0);
         usleep(frame_time - time_diff);
+        glutPostRedisplay();
+    }
+    else
+    {
+        glutPostRedisplay();
     }
 
 
-    glutPostRedisplay();
 }
