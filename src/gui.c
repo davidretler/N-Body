@@ -24,12 +24,13 @@ void Draw() {
 
 void DrawPlanet(planet* my_planet)
 {
-    DrawCircle(my_planet->pos[0]/AU, my_planet->pos[1]/AU, PLANET_RADIUS, NUM_SIDES);
+    DrawCircle(my_planet->pos[0]/AU, my_planet->pos[1]/AU, PLANET_RADIUS, NUM_SIDES, my_planet->color);
 }
 
-void DrawCircle(float cx, float cy, float r, int num_segments)
+void DrawCircle(float cx, float cy, float r, int num_segments, unsigned char color[static 3])
 {
-    glColor3f(0.0f, 0.0f, 0.0f);
+    //set color to color passed
+    glColor3ub(color[0], color[1], color[2]);
     glBegin(GL_TRIANGLE_FAN);
     for(int ii = 0; ii < num_segments; ii++)
     {
@@ -41,6 +42,9 @@ void DrawCircle(float cx, float cy, float r, int num_segments)
         glVertex2f(x + cx, y + cy);//output vertex
     }
     glEnd();
+
+    //set the color back to the defualt
+    glColor3f(0.0f, 0.0f, 0.0f);
 }
 
 void inialize_gui(universe* universe)

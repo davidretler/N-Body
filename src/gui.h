@@ -18,7 +18,7 @@
 #define SPEEDUP 250000         /*How man times faster the simulation is than realtime*/
 
 void Draw(void);
-void DrawCircle(float cx, float cy, float r, int num_segments);
+void DrawCircle(float cx, float cy, float r, int num_segments, unsigned char color[static 3]);
 void DrawPlanet(planet* my_planet);
 void inialize_gui(universe* universe);
 void loop(void);
