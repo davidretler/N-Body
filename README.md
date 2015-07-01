@@ -1,4 +1,4 @@
-# N-Body: a Lightweight N-Body Simulator
+# N-Body: a Lightweight (~1000 LoC) N-Body Simulator
 
 This is n-body simulator I'm currently writing in C. It solves the n-body system
 numerically using the midpoint formula and Newton's law of universal
@@ -17,7 +17,7 @@ To build the cli version use
     make cli
     ./nbody > data.csv
 
-T build the GUI version use
+To build the GUI version use
 
     make gui
     ./nbody-gui
@@ -36,7 +36,7 @@ The program will print a `.csv` file to standard out that contains on each row t
 
 with successive rows representing different points in time. You can pipe the output to a file, to view in an external program. I suggest viewing the data in either LibreOffice Calc or Microsoft Excel.
 
-If you're running the program in gui mode, then you should see a window with the planets in it, updating at 60 FPS. Here is a screenshot for example, with the Sun and the Earth:
+If you're running the program in gui mode, then you should see a window with the planets in it, updating at 60 FPS. Here is a screenshot for example, with the Solar System (plus a random extra body), zoomed in to a scale of 2 AU:
 
 ![Screenshot](./media/screenshot.png)
 
@@ -52,6 +52,10 @@ For example, to add the Earth and the Sun:
     Sun,0,0,0,0,0,0.0,1.988435e30
 
 Note that the numerical value of every quantity is given in SI (MKS) units.
+
+An optional 9th value has beed added: color. To color a planets just add a 9th entry containing the color in hex form. For example, this makes the Earth blue:
+
+    Earth,1.52e11,0,0,0,29316,0,5.972e24,0000FF
 
 # Features to Add
 

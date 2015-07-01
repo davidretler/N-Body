@@ -17,6 +17,8 @@ static const double dt = 60;
 #endif
 
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct planet
 {
@@ -26,6 +28,8 @@ typedef struct planet
     int id;                   //id number
     char* name;               //planent's name
     unsigned char color[3];   //planet's color
+    double mass_log10;        //log10 of mass, for scaling the radius when drawing
+                                //(extra memory for a double is far better than the wasting cycles calculating this every frame)
 } planet;
 
 planet* new_planet(char* name, double pos[static 3], double vel[static 3], double mass);

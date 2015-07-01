@@ -1,7 +1,6 @@
 #include "gui.h"
 
 static int frame_time = (int)((1.0/(double)FPS) * 1000);
-static float circ_pos_y = 0.0f;
 universe* my_universe;
 extern const double AU;
 extern const double G;
@@ -24,7 +23,7 @@ void Draw() {
 
 void DrawPlanet(planet* my_planet)
 {
-    DrawCircle(my_planet->pos[0]/AU, my_planet->pos[1]/AU, PLANET_RADIUS, NUM_SIDES, my_planet->color);
+    DrawCircle(my_planet->pos[0]/AU, my_planet->pos[1]/AU, PLANET_RADIUS * my_planet->mass_log10 , NUM_SIDES, my_planet->color);
 }
 
 void DrawCircle(float cx, float cy, float r, int num_segments, unsigned char color[static 3])
@@ -96,7 +95,6 @@ void loop()
         usleep(frame_time - time_diff);
     }
 
-    circ_pos_y += 0.002f;
 
     glutPostRedisplay();
 }
