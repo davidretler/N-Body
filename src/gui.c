@@ -89,7 +89,6 @@ void loop()
 
     if(time_diff < frame_time)
     {
-        //glutTimerFunc(frame_time - time_diff, (void(*)(int))loop, 0);
         usleep(frame_time - time_diff);
         glutPostRedisplay();
     }
