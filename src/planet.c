@@ -30,7 +30,7 @@ planet* new_planet(char* name, double pos[static 3], double vel[static 3], doubl
     }
 
     ptr->mass = mass;
-    ptr->mass_log10 = log10(mass) * log10(mass) * log10(mass);
+    ptr->mass_log10 = log10(mass);
 
     //defualt color is white
     ptr->color[0] = 255;
