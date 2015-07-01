@@ -147,13 +147,20 @@
                      }
                      unsigned char* the_color = parse_color(item);
                      free(item);
-
-                     planet* my_planet;
-                     my_planet = new_planet_color(name, pos, vel, mass, (unsigned char[3]) {the_color[0], the_color[1], the_color[2]});
-                     add_planet(universe, my_planet);
-                     body_num++;
-                     free(name);
-                     free(the_color);
+                     if(the_color != 0)
+                     {
+                         planet* my_planet;
+                         my_planet = new_planet_color(name, pos, vel, mass, (unsigned char[3]) {the_color[0], the_color[1], the_color[2]});
+                         add_planet(universe, my_planet);
+                         body_num++;
+                         free(name);
+                         free(the_color);
+                    }
+                    else
+                    {
+                        free(name);
+                        return -1; //file is malformed as the color was not a valid hexidecial string
+                    }
                  }
                  else
                  {

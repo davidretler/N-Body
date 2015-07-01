@@ -1,4 +1,4 @@
-# N-Body: a Lightweight (~1000 LoC) N-Body Simulator
+# N-Body: a Lightweight <sub><sup>(~1000 LoC)</sup></sub> N-Body Simulator
 
 This is n-body simulator I'm currently writing in C. It solves the n-body system
 numerically using the midpoint formula and Newton's law of universal
