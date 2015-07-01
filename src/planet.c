@@ -32,10 +32,10 @@ planet* new_planet(char* name, double pos[static 3], double vel[static 3], doubl
 
     ptr->mass = mass;
 
-    //defualt color is black
-    ptr->color[0] = 0;
-    ptr->color[1] = 0;
-    ptr->color[2] = 0;
+    //defualt color is white
+    ptr->color[0] = 255;
+    ptr->color[1] = 255;
+    ptr->color[2] = 255;
 
     return ptr;
 }

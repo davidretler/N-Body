@@ -43,13 +43,13 @@ void DrawCircle(float cx, float cy, float r, int num_segments, unsigned char col
     }
     glEnd();
 
-    //set the color back to the defualt
-    glColor3f(0.0f, 0.0f, 0.0f);
+    //set the color white to the defualt
+    glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 void inialize_gui(universe* universe)
 {
-    glClearColor(1.0, 1.0, 1.0, 0.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);   //sets the background color
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-SCALE, SCALE, -SCALE, SCALE, -1.0, 1.0);
