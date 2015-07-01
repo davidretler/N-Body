@@ -3,8 +3,6 @@
 
 #include <GL/glut.h>
 #include <math.h>
-#include <time.h>
-#include <sys/time.h>
 #include <unistd.h>
 #include <stdio.h>
 #include "universe.h"
