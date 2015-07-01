@@ -24,7 +24,7 @@ T build the GUI version use
 
 ## Running
 
-You can run the program using a custom list of bodies by typing `./nbody planets` where `planets` is a properly-formatted file containg planet data.
+You can run the program using a custom list of bodies by typing `./nbody planets` where `planets` is a properly-formatted file containing planet data.
 
 Note that the gui version is likely only to run on Unix systems. GLUT is is required to build and run the gui version.
 
