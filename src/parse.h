@@ -141,7 +141,7 @@
                          item[curr_char - item_start] = line[curr_char];
                          curr_char++;
                      }
-                     if(item_end - item_start  + 1 != 6)
+                     if(item_end - item_start != 6)
                      {
                          return -1; //file is malformed as color must be 6 charecters long
                      }
