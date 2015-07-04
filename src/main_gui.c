@@ -24,8 +24,11 @@
 
 static universe* my_universe;
 static int error = 0; //remains 0 if no error
+double SCALE = 2.0;
+int SPEEDUP = 500000;
+char* universe_fname;
 
-/**
+/*
  * Cleans up
  */
 void cleanup(void);
@@ -36,7 +39,6 @@ int main(int argc, char* argv[])
     my_universe = new_universe();
     atexit(cleanup);
 
-    //load either the default system or the system stored in the file, depending on the argument
     if (argc == 1)
     {
         //default system
@@ -51,8 +53,12 @@ int main(int argc, char* argv[])
     }
     else
     {
-        //load saved system
-        int p = parse_universe(my_universe, argv[1]);
+        //parse the args passed on the command line
+
+        parse_args(argc, argv);
+
+        printf("Opening file: %s\n", universe_fname);
+        int p = parse_universe(my_universe, universe_fname);
         error = 1;
         if(p != 0)
         {
@@ -60,12 +66,12 @@ int main(int argc, char* argv[])
             free_universe(my_universe);
             if(p == -1)
             {
-                printf("Error: planet file malformed, aborting.\n");
+                printf("Error: planet file (%s) malformed, aborting.\n", universe_fname);
                 return 1;
             }
             if(p == -2)
             {
-                printf("Error: planet file not found, aborting.\n");
+                printf("Error: planet file (%s) not found, aborting.\n", universe_fname);
                 return 1;
             }
         }

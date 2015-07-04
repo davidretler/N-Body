@@ -2,11 +2,8 @@
 
 static int frame_time = (int)((1.0/(double)FPS) * 1000); //time frame should take, ms
 universe* my_universe;
-extern const double AU;
-extern const double G;
-extern const double dt;
 
-#define NUM_STEPS (int)(SPEEDUP/dt/FPS) /*Number of steps to update each frame to achieve desired speedup*/
+#define NUM_STEPS (int)ceil(SPEEDUP/dt/FPS) /*Number of steps to update each frame to achieve desired speedup*/
 
 void Draw() {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -85,7 +82,7 @@ void loop()
 
     int time_diff = end_time - start_time;
 
-    printf("Frame took %u ms to render. Time left %u ms.\n", time_diff, frame_time > time_diff ? frame_time - time_diff : 0);
+    printf("Frame took %u ms to render. Time left %u ms. Ran universe for %f seconds.\n", time_diff, frame_time > time_diff ? frame_time - time_diff : 0, NUM_STEPS*dt);
 
     if(time_diff < frame_time)
     {

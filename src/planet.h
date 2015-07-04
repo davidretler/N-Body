@@ -13,7 +13,7 @@ static const double G = 6.67384e-11;     //gravitational constant
 #ifdef _DT
 static const double dt = _DT;            //time step (lower for more accuracy)
 #else
-static const double dt = 60;
+static const double dt = 1;
 #endif
 
 #include <math.h>
