@@ -20,11 +20,7 @@ This program depends on:
 
 
  N-Body was built and tested on Ubuntu Linux 15.04 but should run on any Linux
- platform with the dependencies installed. N-Body *might* work with Cygwin on
- Windows, but I have not tested it at this point. N-Body makes use of Linux
- system calls for sleeping during frames, and thus currently will not run
- natively on Windows. This may change in the future.
-
+ platform with the dependencies installed. N-Body runs on Windows if compiled and run with [Cygwin](https://www.cygwin.com/). However it is significantly slower than running natively on Linux. YMMV. Make sure to install GLUT and OpenGL first. 
 
 
 ## Building
