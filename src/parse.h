@@ -14,6 +14,7 @@
 extern char* universe_fname; //name of the universe file
 extern double SCALE;
 extern int SPEEDUP;
+extern double dt;
 
  /*
   * Parses the universe from a file containing the initial state
@@ -50,6 +51,10 @@ extern int SPEEDUP;
  *         sets the scale to SCALE (should be a double)
  *     --speedup SPEEDUP
  *         sets the speedup to SPEEDUP (should be an integer)
+ *     --dt DT
+ *         sets the timestep to DT (in seconds)
+ *         lower means more accuracy; higher means faster simulation
+ *         defualt is 1 second
  */
 void parse_args(int argc, char** argv);
 

@@ -10,11 +10,7 @@
 #define PLANENT_H_
 
 static const double G = 6.67384e-11;     //gravitational constant
-#ifdef _DT
-static const double dt = _DT;            //time step (lower for more accuracy)
-#else
-static const double dt = 1;
-#endif
+extern double dt;                        //time step (lower for more accuracy)
 
 #include <math.h>
 #include <stdlib.h>

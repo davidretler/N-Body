@@ -2,7 +2,7 @@
 
 
 extern const double G;
-extern const double dt;
+extern double dt;
 
 planet* new_planet(char* name, double pos[static 3], double vel[static 3], double mass)
 {

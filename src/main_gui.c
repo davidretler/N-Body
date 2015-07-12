@@ -8,9 +8,7 @@
  *      Author: David Etler
  */
 
-#define _N_STEPS 365*5
-#define _DT 60
-#define _DELIMITER ','
+#define _DT 60             /*Defualt timestep*/
 
 #include <stdint.h>
 #include <math.h>
@@ -22,11 +20,13 @@
 #include "gui.h"
 #include "parse.h"
 
+
 static universe* my_universe;
 static int error = 0; //remains 0 if no error
 double SCALE = 2.0;
 int SPEEDUP = 500000;
 char* universe_fname;
+double dt = 1;
 
 /*
  * Cleans up
@@ -45,10 +45,10 @@ int main(int argc, char* argv[])
 
         planet* my_planet;
 
-        my_planet = new_planet("Earth", (double[3] ) { 1.52e11, 0.0, 0.0 }, (double[3] ) { 0.0, 29316, 0.0 }, 5.972e24);
+        my_planet = new_planet("Earth", (double[3]) { 1.52e11, 0.0, 0.0 }, (double[3]) { 0.0, 29316, 0.0 }, 5.972e24);
         add_planet(my_universe, my_planet);
 
-        my_planet = new_planet("Sun", (double[3] ) { 0.0, 0.0, 0.0 }, (double[3] ) { 0.0, 0.0, 0.0 }, 1.988435e30);
+        my_planet = new_planet("Sun", (double[3]) { 0.0, 0.0, 0.0 }, (double[3]) { 0.0, 0.0, 0.0 }, 1.988435e30);
         add_planet(my_universe, my_planet);
     }
     else

@@ -17,7 +17,7 @@ extern double SCALE;    /*How many AU to include in the rendering the universe*/
 extern int SPEEDUP;  /*How man times faster the simulation is than realtime*/
 extern const double AU;
 extern const double G;
-extern const double dt;
+extern double dt;
 
 void Draw(void);
 void DrawCircle(float cx, float cy, float r, int num_segments, unsigned char color[static 3]);

@@ -82,7 +82,7 @@ void loop()
 
     int time_diff = end_time - start_time;
 
-    printf("Frame took %u ms to render. Time left %u ms. Ran universe for %f seconds.\n", time_diff, frame_time > time_diff ? frame_time - time_diff : 0, NUM_STEPS*dt);
+    printf("Frame took %u ms to render. Time left %u ms. Ran universe for %f seconds (dt = %f).\n", time_diff, frame_time > time_diff ? frame_time - time_diff : 0, NUM_STEPS*dt, dt);
 
     if(time_diff < frame_time)
     {

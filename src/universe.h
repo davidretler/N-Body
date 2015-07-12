@@ -15,7 +15,7 @@
 #include "list.h"
 
 static const double AU = 1.496e11; //one astronomical unit (in meters)
-extern const double dt;
+extern double dt;
 
 typedef struct universe
 {
