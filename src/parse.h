@@ -15,6 +15,8 @@ extern char* universe_fname; //name of the universe file
 extern double SCALE;
 extern int SPEEDUP;
 extern double dt;
+extern void (*update_function)(universe*);
+
 
  /*
   * Parses the universe from a file containing the initial state
@@ -51,10 +53,14 @@ extern double dt;
  *         sets the scale to SCALE (should be a double)
  *     --speedup SPEEDUP
  *         sets the speedup to SPEEDUP (should be an integer)
+ *         defualt is 500000
  *     --dt DT
  *         sets the timestep to DT (in seconds)
  *         lower means more accuracy; higher means faster simulation
  *         defualt is 1 second
+ *     --euler
+ *         use Euler's method rather than midpoint. Quicker execution but lower
+ *             accuracy
  */
 void parse_args(int argc, char** argv);
 

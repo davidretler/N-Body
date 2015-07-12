@@ -70,7 +70,7 @@ void loop()
      */
     for(int n = 0; n < NUM_STEPS; n++)
     {
-        universe_update_midpoint(my_universe);
+        update_function(my_universe);
     }
     //printf("Ran n=%u steps\n", NUM_STEPS);
 

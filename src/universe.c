@@ -23,9 +23,9 @@ void add_planet(universe* universe, planet* planet)
 }
 
 /*
- * Updates the universe, one planet at a time
+ * Updates the universe, one planet at a time, using Euler's method
  */
-void universe_update(universe* universe)
+void universe_update_euler(universe* universe)
 {
     //array to store net forces
     double net_forces[universe->planet_list->length][3];

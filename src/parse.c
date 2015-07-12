@@ -229,15 +229,20 @@ void parse_args(int argc, char** argv)
             SCALE = strtod(argv[a+1],0);
             a += 2;
         }
-        if(strcmp(argv[a], "--speedup") == 0)
+        else if(strcmp(argv[a], "--speedup") == 0)
         {
             SPEEDUP = (int) strtol(argv[a+1],0,10);
             a += 2;
         }
-        if(strcmp(argv[a], "--dt") == 0)
+        else if(strcmp(argv[a], "--dt") == 0)
         {
             dt = strtod(argv[a+1],0);
             a += 2;
+        }
+        else if(strcmp(argv[a], "--euler") == 0)
+        {
+            update_function = &universe_update_euler;
+            a++;
         }
         else
         {

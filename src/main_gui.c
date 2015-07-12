@@ -8,7 +8,7 @@
  *      Author: David Etler
  */
 
-#define _DT 60             /*Defualt timestep*/
+#define _DT 60  /*Defualt timestep*/
 
 #include <stdint.h>
 #include <math.h>
@@ -21,12 +21,14 @@
 #include "parse.h"
 
 
-static universe* my_universe;
-static int error = 0; //remains 0 if no error
-double SCALE = 2.0;
-int SPEEDUP = 500000;
-char* universe_fname;
-double dt = 1;
+static universe* my_universe;                                   //pointer to the universe
+static int error = 0;                                           //remains 0 if no error
+double SCALE = 2.0;                                             //scale to draw universe at (number of AU)
+int SPEEDUP = 500000;                                           //how many times faster than realtime to run the simulation
+char* universe_fname;                                           //name of the universe file (null for no file)
+double dt = 1;                                                  //timestep
+void (*update_function)(universe*) = &universe_update_midpoint; //pointer to the universe's update function
+
 
 /*
  * Cleans up

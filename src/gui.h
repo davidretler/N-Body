@@ -13,11 +13,12 @@
 #define PLANET_RADIUS 0.001    /*Scale factor for radii (actual radii varies with log(planet->mass))*/
 #define NUM_SIDES 100          /*Number of sides to draw polygon with to approximate circle*/
 
-extern double SCALE;    /*How many AU to include in the rendering the universe*/
-extern int SPEEDUP;  /*How man times faster the simulation is than realtime*/
+extern double SCALE;           /*How many AU to include in the rendering the universe*/
+extern int SPEEDUP;            /*How man times faster the simulation is than realtime*/
 extern const double AU;
 extern const double G;
 extern double dt;
+extern void (*update_function)(universe*); /*The function that updates the universe*/
 
 void Draw(void);
 void DrawCircle(float cx, float cy, float r, int num_segments, unsigned char color[static 3]);

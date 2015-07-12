@@ -25,7 +25,7 @@ typedef struct universe
 
 universe* new_universe();
 void add_planet(universe* universe, planet* planet);
-void universe_update(universe* universe);
+void universe_update_euler(universe* universe);
 void universe_update_midpoint(universe* universe);
 void free_universe(universe* universe);
 
